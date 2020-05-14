@@ -31,7 +31,7 @@
                   </div>
                 @endforeach
                 @else
-                <h3>Omg..We are sold out</h3>
+                <h3>Restocking the shelves, stay tuned <i class="fas fa-heart"></i> </h3>
                 @endif
 
 

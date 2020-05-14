@@ -9,6 +9,7 @@
 
             <div class="row">
 
+                @if($products->count() > 0)
                 @foreach($products as $product)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
@@ -29,6 +30,10 @@
                     </div>
                   </div>
                 @endforeach
+                @else
+                <h3>Omg..We are sold out</h3>
+                @endif
+
 
             </div>
             <!-- /.row -->

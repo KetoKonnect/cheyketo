@@ -30,3 +30,6 @@ Route::prefix('/admin')->group(function () {
     Route::get('product/create', 'ProductController@create')->name('admin.product.create');
     Route::post('product/store', 'ProductController@store')->name('admin.product.store');
 });
+
+Route::get('/cart', 'CartController@index')->name('cart.view');
+Route::post('/cart/add/{product}', 'CartController@update')->name('cart.add');

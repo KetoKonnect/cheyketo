@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        // Show the items in the cart
+        $items = \Cart::session(Auth::user()->id)->getContent();
+        return $items;
     }
 
     /**
@@ -66,9 +75,21 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $product_id)
     {
-        //
+        // add product to cart
+        $user = Auth::user();
+
+        $product = Product::find($product_id);
+
+        \Cart::session($user->id)->add([
+            'id' => $product->id,
+            'price' => $product->price,
+            'quantity' => 1,
+            'name' => $product->name
+        ]);
+
+        return redirect()->back()->with('cart_updated', $product->name . ' has been added to your cart');
     }
 
     /**

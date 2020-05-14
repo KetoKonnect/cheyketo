@@ -21,7 +21,10 @@
                         <p class="card-text">{{$product->description }}</p>
                       </div>
                       <div class="card-footer">
-                          <button class="btn-primary btn-block" >Add to cart</button>
+                      <form method="POST" action="{{ route('cart.add', $product->id)}}">
+                              @csrf
+                              <button type="submit" class="btn-primary btn-block">Add to cart</button>
+                          </form>
                       </div>
                     </div>
                   </div>

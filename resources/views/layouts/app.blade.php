@@ -50,9 +50,10 @@
                             @endif
                         @else
                         <li class="nav-item">
-                        <a class="nav-link" href="{{ route('storefront')}}">
-                                Store
-                            </a>
+                        <a class="nav-link" href="{{ route('cart.view')}}">
+                            <i class="fas fa-shopping-cart"></i>
+                            {{ \Cart::session(Auth::user()->id)->getTotalQuantity() }} item(s)
+                        </a>
                         </li>
 
                             <li class="nav-item dropdown">
@@ -81,6 +82,11 @@
             </div>
         </nav>
 
+        @if(session('cart_updated'))
+                <div class="alert alert-success">
+                    {{session('cart_updated')}}
+                </div>
+            @endif
         <main class="py-4">
             @yield('content')
         </main>

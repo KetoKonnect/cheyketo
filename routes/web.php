@@ -33,3 +33,6 @@ Route::prefix('/admin')->group(function () {
 
 Route::get('/cart', 'CartController@index')->name('cart.view');
 Route::post('/cart/add/{product}', 'CartController@update')->name('cart.add');
+Route::post('/cart/remove/{index}', 'CartController@destroy')->name('cart.remove');
+Route::post('/cart/addOne/{index}', 'CartController@addOne')->name('cart.addOne');
+Route::post('/cart/removeOne/{index}', 'CartController@removeOne')->name('cart.removeOne');

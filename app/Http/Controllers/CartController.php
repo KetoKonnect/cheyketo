@@ -113,6 +113,26 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // remove item
+        \Cart::session(Auth::user()->id)->remove($id);
+
+        return redirect()->back()->with('success', 'This item was removed from your cart');
+    }
+
+    function addOne($id)
+    {
+        // dd($item->quantity + 1);
+        \Cart::session(Auth::user()->id)->update($id, [
+            'quantity' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'This item was updated');
+    }
+
+    function removeOne($id)
+    {
+        \Cart::session(Auth::user()->id)->update($id, ['quantity' => -1]);
+
+        return redirect()->back()->with('success', 'This item was updated');
     }
 }

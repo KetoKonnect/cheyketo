@@ -25,7 +25,7 @@ class CartController extends Controller
         $condition = new CartCondition([
             'name' => 'VAT 12%',
             'type' => 'tax',
-            'target' => 'subtotal',
+            'target' => 'total',
             'value' => '12.00%',
             'attributes' => [
                 'description' => 'Value added tax'

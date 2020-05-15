@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,20 @@ class CartController extends Controller
      */
     public function index()
     {
+        //create VAT condition
+        $condition = new CartCondition([
+            'name' => 'VAT 12%',
+            'type' => 'tax',
+            'target' => 'subtotal',
+            'value' => '12.00%',
+            'attributes' => [
+                'description' => 'Value added tax'
+            ]
+        ]);
         // Show the items in the cart
+        \Cart::session(Auth::user()->id)->condition($condition);
         $items = \Cart::session(Auth::user()->id)->getContent();
-        return $items;
+        return view('user.cart', compact('items'));
     }
 
     /**
@@ -86,10 +98,11 @@ class CartController extends Controller
             'id' => $product->id,
             'price' => $product->price,
             'quantity' => 1,
-            'name' => $product->name
+            'name' => $product->name,
+            'associatedModel' => $product
         ]);
 
-        return redirect()->back()->with('cart_updated', $product->name . ' has been added to your cart');
+        return redirect()->back()->with('cart_updated', '\'' . $product->name . '\' has been added to your cart');
     }
 
     /**

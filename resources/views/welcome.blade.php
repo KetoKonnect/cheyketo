@@ -31,10 +31,10 @@
                   </div>
                 @endforeach
                 @else
-                <h3>Restocking the shelves, stay tuned <i class="fas fa-heart"></i> </h3>
+                <div class="text-center">
+                    <h3>Restocking the shelves, stay tuned <i class="fas fa-heart"></i> </h3>
+                </div>
                 @endif
-
-
             </div>
             <!-- /.row -->
 

@@ -36,3 +36,7 @@ Route::post('/cart/add/{product}', 'CartController@update')->name('cart.add');
 Route::post('/cart/remove/{index}', 'CartController@destroy')->name('cart.remove');
 Route::post('/cart/addOne/{index}', 'CartController@addOne')->name('cart.addOne');
 Route::post('/cart/removeOne/{index}', 'CartController@removeOne')->name('cart.removeOne');
+
+Route::get('/checkout', 'CartController@showCheckout')->name('checkout');
+Route::post('/checkout', 'CartController@checkout')->name('create_order');
+Route::post('/createAddress', 'HomeController@createAddress')->name('address.create');

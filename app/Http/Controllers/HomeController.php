@@ -40,4 +40,9 @@ class HomeController extends Controller
         $products = Product::all();
         return view('welcome', compact('products'));
     }
+
+    function createAddress(Request $request)
+    {
+        ddd($request->all);
+    }
 }

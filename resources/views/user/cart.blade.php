@@ -71,18 +71,11 @@
                             <h6>
                                 Subtotal: ${{ number_format(\Cart::session(Auth::user()->id)->getSubTotal(), 2, '.', ',' ) }}
                             </h6>
-                            <p>
-                                VAT 12%: ${{ number_format(
-                                    \Cart::session(Auth::user()->id)
-                                    ->getCondition('VAT 12%')
-                                    ->getCalculatedValue(\Cart::session(Auth::user()->id)->getSubTotal()), 2, '.', ','
-                                    )}}
-                            </p>
                             <h4>
                                 Total: ${{ number_format(\Cart::session(Auth::user()->id)->getTotal(), 2, '.', ',' ) }}
                             </h4>
                         </div>
-                        <a href="#" class="btn btn-primary btn-block btn-large">Let's Checkout</a>
+                    <a href="{{ route('checkout') }}" class="btn btn-primary btn-block btn-large">Let's Checkout</a>
                     <a href="{{ route('storefront')}}" class="btn btn-secondary btn-block btn-large">Continue Shopping</a>
                     </div>
 

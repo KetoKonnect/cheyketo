@@ -21,18 +21,6 @@ class CartController extends Controller
      */
     public function index()
     {
-        //create VAT condition
-        $condition = new CartCondition([
-            'name' => 'VAT 12%',
-            'type' => 'tax',
-            'target' => 'total',
-            'value' => '12.00%',
-            'attributes' => [
-                'description' => 'Value added tax'
-            ]
-        ]);
-        // Show the items in the cart
-        \Cart::session(Auth::user()->id)->condition($condition);
         $items = \Cart::session(Auth::user()->id)->getContent();
         return view('user.cart', compact('items'));
     }
@@ -42,9 +30,11 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showCheckout()
     {
         //
+        $items = \Cart::session(Auth::user()->id)->getContent();
+        return view('user.checkout', compact('items'));
     }
 
     /**
@@ -115,6 +105,9 @@ class CartController extends Controller
     {
         // remove item
         \Cart::session(Auth::user()->id)->remove($id);
+        if (\Cart::session(Auth::user()->id)->getContent()->count() <= 0) {
+            \Cart::session(Auth::user()->id)->clearCartConditions();
+        }
 
         return redirect()->back()->with('success', 'This item was removed from your cart');
     }
@@ -132,6 +125,10 @@ class CartController extends Controller
     function removeOne($id)
     {
         \Cart::session(Auth::user()->id)->update($id, ['quantity' => -1]);
+
+        if (\Cart::session(Auth::user()->id)->getContent()->count() <= 0) {
+            \Cart::session(Auth::user()->id)->clearCartConditions();
+        }
 
         return redirect()->back()->with('success', 'This item was updated');
     }

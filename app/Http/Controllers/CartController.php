@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\OrderReceived;
+use App\Notifications\OrderSubmitted;
 use App\Product;
-use Darryldecode\Cart\CartCondition;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 class CartController extends Controller
 {
@@ -131,5 +132,47 @@ class CartController extends Controller
         }
 
         return redirect()->back()->with('success', 'This item was updated');
+    }
+
+    function checkout(Request $request)
+    {
+        // validate request
+        $request->validate(['payment_method' => 'required']);
+        // get cart contents
+        $cart = \Cart::session(Auth::user()->id);
+        $items = $cart->getContent();
+        // create line items
+        $lineItems = [];
+        foreach ($items as $index => $item) {
+            array_push($lineItems, [
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => $item->price,
+                'quantity' => $item->quantity,
+                'description' => $item->associatedModel->description
+            ]);
+            // update product count in database
+            $item->associatedModel->destock($item->quantity);
+        }
+        // create order and assign it to the user
+        $order = Auth::user()->orders()->create([
+            'line_items' => $lineItems,
+            'payment_method' => $request->payment_method,
+            'subtotal' => $cart->getSubTotal(),
+            'total' => $cart->getTotal(),
+            'status' => 'new'
+        ]);
+
+        // notify customer and admin
+
+        // 1 - notify customer via email
+        Auth::user()->notify(new OrderSubmitted($order));
+
+        // 2 - notify sales via email
+        Notification::route('mail', env('SALES_EMAIL', 'ketokonnect242@gmail.com'))
+            ->notify(new OrderReceived($order));
+
+        $cart->clear();
+        return redirect(route('user.orders'))->with('success', 'Order Placed');
     }
 }

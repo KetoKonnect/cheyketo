@@ -26,13 +26,14 @@
                                 </label>
                             </div>
                             @if(auth()->user()->address != null)
-                                <div v-if="selected == delivery">
-                                    <Address>
-                                        {{ auth()->user()->address->street_address }}
-                                        {{ auth()->user()->address->city }}
-                                        {{ auth()->user()->address->island }}
-
-                                        Delivery Notes:
+                                <div class="alert alert-info" v-if="selected === 'delivery'">
+                                    <h5>Saved Address</h5>
+                                    <Address id="address">
+                                        {{ auth()->user()->address->street_address }} <br>
+                                        {{ auth()->user()->address->city }}<br>
+                                        {{ auth()->user()->address->island }}<br>
+                                        <br>
+                                        Delivery Notes: <br>
                                         {{ auth()->user()->address->delivery_notes }}
                                     </Address>
                                 </div>
@@ -40,6 +41,7 @@
                                 <div v-if="selected === 'delivery'">
                                     Delivery Details
                                     <form class="form" method="POST" action="{{ route('address.create') }}">
+                                        @csrf
                                         <div class="form-row mb-2">
                                             <div class="col-md">
                                                 <input type="text" class="form-control" placeholder="Street Address" name="street_address" required>
@@ -50,10 +52,10 @@
                                         </div>
                                         <div class="form-row mb-2">
                                             <div class="col-md">
-                                                <region-select v-model="region" name="island" :country="country" :region="region" region-name="true" class="form-control" placeholder="Select Island" required />
+                                                <region-select v-model="region" name="island" :country="country" :region="region" region-name="true" class="form-control"  placeholder="Select Island" required />
                                             </div>
                                             <div class="col-md">
-                                                <country-select v-model="country" :country="country" topCountry="US" class="form-control" disabled="true" />
+                                                <country-select v-model="country" :country="country" topCountry="US" class="form-control" disabled="true" name="country"  />
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -114,6 +116,7 @@
                         </div>
                         <button class="btn btn-success btn-block" v-if="selected != ''">Checkout</button>
                     </div>
+                    <input type="hidden" name="payment_method" v-bind:value="selected">
                 </form>
                     @else
                     <div class="text-center">

@@ -21,14 +21,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/myorders', 'HomeController@userOrders')->name('user.orders');
+Route::get('/myorders/{order}', 'HomeController@viewOrder')->name('user.viewOrder');
 
 //admin routes
 Route::prefix('/admin')->group(function () {
     Route::get('login', 'AdminController@showlogin')->name('admin.login');
     Route::post('login', 'AdminController@login');
-    Route::get('home', 'AdminController@index')->name('admin.home');
-    Route::get('product/create', 'ProductController@create')->name('admin.product.create');
-    Route::post('product/store', 'ProductController@store')->name('admin.product.store');
+    Route::get('home', 'AdminController@index')->middleware('auth.admin')->name('admin.home');
+    Route::get('product/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');
+    Route::post('product/store', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');
+    Route::get('order/{orderId}', 'AdminController@viewOrder')->middleware('auth.admin')->name('admin.viewOrder');
+    Route::get('orders', 'AdminController@allOrders')->middleware('auth.admin')->name('admin.allOrders');
+    Route::get('order/{order}/update_status', 'AdminController@updateOrderStatus')->middleware('auth.admin')->name('admin.updateOrderStatus');
 });
 
 Route::get('/cart', 'CartController@index')->name('cart.view');

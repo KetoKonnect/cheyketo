@@ -20,9 +20,9 @@ class Product extends Model
         return ($value / 100);
     }
 
-    // public function getThumbnailAttribute($value)
-    // {
-    //     # code...
-    //     return Storage::url($value);
-    // }
+    public function destock($amount)
+    {
+        $new_amount = ($this->qty - $amount);
+        $this->update(['qty' => $new_amount]);
+    }
 }

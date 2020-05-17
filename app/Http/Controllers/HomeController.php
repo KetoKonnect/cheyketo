@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,19 @@ class HomeController extends Controller
 
     function createAddress(Request $request)
     {
-        ddd($request->all);
+        $data = $request->validate([
+            'street_address' => 'required|min:5',
+            'city' => 'required|min:2',
+            'island' => 'required',
+        ]);
+        $data = array_merge($data, ['country' => 'BS', 'delivery_notes' => $request->delivery_notes]);
+        Auth::user()->address()->create($data);
+
+        return redirect()->back()->with('success', 'Address Details confirmed');
+    }
+
+    function viewOrder(Order $order)
+    {
+        return view('user.order', compact('order'));
     }
 }

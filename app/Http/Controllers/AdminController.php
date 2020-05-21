@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     public function updateProduct(Request $request, Product $product)
     {
-        $product = $product->update($request->validate([
+        $product->update($request->validate([
             'name' => 'required|min:5',
             'price' => 'required|numeric',
             'qty' => 'required|numeric',

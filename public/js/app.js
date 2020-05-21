@@ -49725,7 +49725,8 @@ var app = new Vue({
     return {
       selected: "",
       country: "BS",
-      region: ""
+      region: "",
+      edit_image: false
     };
   }
 });

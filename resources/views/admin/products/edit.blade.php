@@ -53,10 +53,12 @@
                         </div>
                         <img src="{{ asset($product->thumbnail) }}" class="img-thumbnail" width="70">
 
-                        <div class="form-group">
+                        <button class="btn btn-secondary" v-on:click.prevent="edit_image = true" v-if="edit_image == false">Change thumbnail</button>
+                        <div class="form-group" v-if="edit_image">
                             {!! Form::label('thumbnail', 'Photo') !!}
                             {!! Form::file('thumbnail', ['class' => 'form-control', 'accept' => 'image/*']) !!}
                         </div>
+                        <button class="btn btn-secondary" v-if="edit_image" v-on:click.prevent="edit_image = false">Don't change thumbnail</button>
                         {!! Form::submit('Update', ['class' => 'btn btn-primary btn-block'])!!}
                         {!! Form::close() !!}
                     </div>

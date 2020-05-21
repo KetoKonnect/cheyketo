@@ -75,6 +75,6 @@ class AdminController extends Controller
             'thumbnail' => 'image'
         ]));
         # code...
-        return redirect(route('admin.products.edit', $product->id))->with('success', 'Product Updated');
+        return redirect(route('admin.viewProduct', $product->id))->with('success', 'Product Updated');
     }
 }

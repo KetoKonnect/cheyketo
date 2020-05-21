@@ -73,7 +73,7 @@ class AdminController extends Controller
             'qty' => 'required|numeric',
             'description' => 'required|min:10',
             'thumbnail' => 'image'
-        ]);
+        ]));
         # code...
         return redirect(route('admin.products.edit', $product->id))->with('success', 'Product Updated');
     }

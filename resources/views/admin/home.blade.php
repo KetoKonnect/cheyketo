@@ -7,7 +7,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h1 class="m-5">
-                            <a href="#">
+                        <a href="{{ route('admin.allProducts')}}">
                                 <i class="fas fa-tags"></i>
                                 Products
                             </a>

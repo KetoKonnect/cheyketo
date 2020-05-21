@@ -17,6 +17,8 @@ class AdminController extends Controller
             ['email' => $request->email, 'password' => $request->password]
         )) {
             return redirect()->intended(route('admin.home'));
+        } else {
+            return redirect()->back()->with('error', 'Invalid login credentials');
         }
     }
 
@@ -50,5 +52,22 @@ class AdminController extends Controller
     {
         $order->updateStatus($request->status);
         return redirect()->back()->with('success', 'Order has been updated, and the customer has been notified');
+    }
+
+    public function allProducts()
+    {
+        $products = Product::all();
+        return view('admin.products.all', compact('products'));
+    }
+
+    public function getProduct(Product $product)
+    {
+        return view('admin.products.view', compact('product'));
+    }
+
+    public function editProduct(Product $product)
+    {
+        # code...
+        return view('admin.products.edit', compact('product'));
     }
 }

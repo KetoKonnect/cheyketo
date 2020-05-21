@@ -48,6 +48,16 @@
 
         </div>
         <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Customer Details</h5>
+                    <ul>
+                        <li>{{ $order->user->name }}</li>
+                        <li>{{ $order->user->phone_number }}</li>
+                        <li> {{ $order->user->email }}</li>
+                    </ul>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                 <h5>Payment Method: <span class="text-info">{{ $order->payment_method }}</span></h5>

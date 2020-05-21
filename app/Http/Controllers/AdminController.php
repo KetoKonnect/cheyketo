@@ -65,7 +65,12 @@ class AdminController extends Controller
         return view('admin.products.view', compact('product'));
     }
 
-    public function editProduct(Request $request, Product $product)
+    public function editProduct(Product $product)
+    {
+        return view('admin.products.edit', compact('product'));
+    }
+
+    public function updateProduct(Request $request, Product $product)
     {
         $product = $product->update($request->validate([
             'name' => 'required|min:5',

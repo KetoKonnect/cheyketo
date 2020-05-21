@@ -33,7 +33,7 @@ Route::prefix('/admin')->group(function () {
     Route::post('product/create', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');
     Route::get('product/{product}', 'AdminController@getProduct')->middleware('auth.admin')->name('admin.viewProduct');
     Route::get('product/{product}/edit', 'AdminController@editProduct')->middleware('auth.admin')->name('admin.products.edit');
-    Route::post('product/{product}/edit', 'AdminController@editProduct')->middleware('auth.admin')->name('admin.product.update');
+    Route::post('product/{product}/edit', 'AdminController@updateProduct')->middleware('auth.admin')->name('admin.product.update');
 
     Route::get('order/{orderId}', 'AdminController@viewOrder')->middleware('auth.admin')->name('admin.viewOrder');
     Route::get('orders', 'AdminController@allOrders')->middleware('auth.admin')->name('admin.allOrders');

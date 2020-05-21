@@ -65,9 +65,16 @@ class AdminController extends Controller
         return view('admin.products.view', compact('product'));
     }
 
-    public function editProduct(Product $product)
+    public function editProduct(Request $request, Product $product)
     {
+        $product = $product->update($request->validate([
+            'name' => 'required|min:5',
+            'price' => 'required|numeric',
+            'qty' => 'required|numeric',
+            'description' => 'required|min:10',
+            'thumbnail' => 'image'
+        ]);
         # code...
-        return view('admin.products.edit', compact('product'));
+        return redirect(route('admin.products.edit', $product->id))->with('success', 'Product Updated');
     }
 }

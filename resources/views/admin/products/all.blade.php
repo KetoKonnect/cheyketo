@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
@@ -9,13 +10,15 @@
             </ol>
           </nav>
 
-        <h2>All Products</h2>
 
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <div class="table-responsive">
+
+                        <h2>All Products</h2>
+                        <a href="{{ route('admin.product.create')}}" class="btn btn-outline-secondary">Add a Product</a>
+                        <div class="table-responsive mt-3">
                             <table class="table">
                                 <thead>
                                     <tr>

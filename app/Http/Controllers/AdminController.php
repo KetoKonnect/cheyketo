@@ -82,4 +82,19 @@ class AdminController extends Controller
         # code...
         return redirect(route('admin.viewProduct', $product->id))->with('success', 'Product Updated');
     }
+
+    public function unavailable(Product $product)
+    {
+        $product->update(['status' => 'unavailable']);
+
+        return redirect()->back()->with('success', 'Product Unavailable');
+    }
+
+
+    public function available(Product $product)
+    {
+        $product->update(['status' => 'available']);
+
+        return redirect()->back()->with('success', 'Product Available');
+    }
 }

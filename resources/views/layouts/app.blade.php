@@ -89,6 +89,11 @@
                     {{session('cart_updated')}}
                 </div>
             @endif
+            @if(session('fail'))
+                <div class="alert alert-warning">
+                    {{session('fail')}}
+                </div>
+            @endif
         <main class="py-4">
             @yield('content')
         </main>

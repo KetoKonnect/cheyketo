@@ -4,11 +4,11 @@
 <div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('admin.allProducts') }}">All Products</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ $product->name}}</li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('admin.allProducts') }}">All Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $product->name}}</li>
         </ol>
-      </nav>
+    </nav>
     <div class="row">
         <div class="col">
 
@@ -54,7 +54,16 @@
                                 </ul>
                             </div>
                             <div>
-                            <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-primary btn-block">Edit</a>
+                                <a href="{{ route('admin.products.edit', $product->id) }}"
+                                    class="btn btn-primary btn-block">Edit</a>
+                                @if($product->status == 'available')
+                                <a href="{{ route('admin.products.unavailable', $product->id) }}"
+                                    class="btn btn-secondary btn-block">Mark Unavailable</a>
+                                @else
+                                <a href="{{ route('admin.products.available', $product->id) }}"
+                                    class="btn btn-secondary btn-block">Mark Available</a>
+
+                                @endif
                             </div>
                         </div>
 

@@ -84,16 +84,27 @@ class CartController extends Controller
         $user = Auth::user();
 
         $product = Product::find($product_id);
+        $cart = \Cart::session($user->id);
 
-        \Cart::session($user->id)->add([
-            'id' => $product->id,
-            'price' => $product->price,
-            'quantity' => 1,
-            'name' => $product->name,
-            'associatedModel' => $product
-        ]);
+        if ($cart->get($product->id)) {
+            $quantity_incart = $cart->get($product->id)->quantity;
+        } else {
+            $quantity_incart = 0;
+        }
 
-        return redirect()->back()->with('cart_updated', '\'' . $product->name . '\' has been added to your cart');
+
+        if ($product->qtyavailable(1) && ($quantity_incart < 3)) {
+            \Cart::session($user->id)->add([
+                'id' => $product->id,
+                'price' => $product->price,
+                'quantity' => 1,
+                'name' => $product->name,
+                'associatedModel' => $product
+            ]);
+            return redirect()->back()->with('cart_updated', '\'' . $product->name . '\' has been added to your cart');
+        } else {
+            return redirect()->back()->with('fail', '\'' . $product->name . '\' - max allowed quantity reached');
+        }
     }
 
     /**
@@ -116,9 +127,18 @@ class CartController extends Controller
     function addOne($id)
     {
         // dd($item->quantity + 1);
-        \Cart::session(Auth::user()->id)->update($id, [
-            'quantity' => 1
-        ]);
+        // see if we have reached the max avail
+        $cart = \Cart::session(Auth::user()->id);
+
+        $item = $cart->get($id);
+        if ($item->associatedModel->qtyAvailable($item->quantity) && ($item->quantity < 3)) {
+            \Cart::session(Auth::user()->id)->update($id, [
+                'quantity' => 1
+            ]);
+        } else {
+            return redirect()->back()->with('fail', 'Max reached for ' . $item->name);
+        }
+
 
         return redirect()->back()->with('success', 'This item was updated');
     }
@@ -144,15 +164,17 @@ class CartController extends Controller
         // create line items
         $lineItems = [];
         foreach ($items as $index => $item) {
-            array_push($lineItems, [
-                'id' => $item->id,
-                'name' => $item->name,
-                'price' => $item->price,
-                'quantity' => $item->quantity,
-                'description' => $item->associatedModel->description
-            ]);
-            // update product count in database
-            $item->associatedModel->destock($item->quantity);
+            if ($item->associatedModel->destock($item->quantity)) {
+                array_push($lineItems, [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'price' => $item->price,
+                    'quantity' => $item->quantity,
+                    'description' => $item->associatedModel->description
+                ]);
+            } else {
+                return redirect(route('cart.view'))->with('fail', 'Quantity requested for ' . $item->name . ' is not available');
+            }
         }
         // create order and assign it to the user
         $order = Auth::user()->orders()->create([

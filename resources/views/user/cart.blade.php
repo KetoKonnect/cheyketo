@@ -7,6 +7,8 @@
                 {{session('success')}}
             </div>
         @endif
+        <a href="{{ route('storefront') }}" class="btn btn-outline-primary"> Back to store </a>
+
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <h2>

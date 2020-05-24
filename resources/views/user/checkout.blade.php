@@ -7,6 +7,8 @@
                 {{session('success')}}
             </div>
         @endif
+        <a href="{{ route('cart.view') }}" class="btn btn-outline-primary"> Back to Cart </a>
+
         <div class="row">
             <div class="col-md-6">
                 <h2>Payment Details</h2>

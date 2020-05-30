@@ -43,7 +43,7 @@ class Product extends Model
 
     public function qtyAvailable($amount)
     {
-        if (($this->qty > 0) && ($amount <= $this->qty)) {
+        if (($this->qty > 0) && ($amount <= $this->qty) && (($this->qty - $amount) >= 0)) {
             return true;
         } else {
             return false;

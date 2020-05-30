@@ -87,13 +87,13 @@ class CartController extends Controller
         $cart = \Cart::session($user->id);
 
         if ($cart->get($product->id)) {
-            $quantity_incart = $cart->get($product->id)->quantity;
+            $in_cart = true;
         } else {
-            $quantity_incart = 0;
+            $in_cart = false;
         }
 
 
-        if ($product->qtyavailable(1) && ($quantity_incart < 3)) {
+        if ($product->qtyavailable(1) && (!$in_cart)) {
             \Cart::session($user->id)->add([
                 'id' => $product->id,
                 'price' => $product->price,
@@ -103,7 +103,7 @@ class CartController extends Controller
             ]);
             return redirect()->back()->with('cart_updated', '\'' . $product->name . '\' has been added to your cart');
         } else {
-            return redirect()->back()->with('fail', '\'' . $product->name . '\' - max allowed quantity reached');
+            return redirect()->back()->with('fail', '\'' . $product->name . '\' Already in your cart');
         }
     }
 
@@ -131,7 +131,7 @@ class CartController extends Controller
         $cart = \Cart::session(Auth::user()->id);
 
         $item = $cart->get($id);
-        if ($item->associatedModel->qtyAvailable($item->quantity) && ($item->quantity < 3)) {
+        if ($item->associatedModel->qtyAvailable($item->quantity + 1)) {
             \Cart::session(Auth::user()->id)->update($id, [
                 'quantity' => 1
             ]);

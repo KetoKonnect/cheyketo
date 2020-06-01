@@ -21,7 +21,7 @@
                             <h5>${{number_format($product->price, 2, '.',',')}}</h5>
                             <p class="card-text">{{$product->description }}</p>
                         </div>
-                        @if($product->status == 'available')
+                        @if($product->status == 'available' && $product->qty > 0)
                         <div class="card-footer">
                             <form method="POST" action="{{ route('cart.add', $product->id)}}">
                                 @csrf

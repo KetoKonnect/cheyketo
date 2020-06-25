@@ -7,6 +7,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h1 class="m-5">
+                            <router-link to="/products">Products</router-link>
                         <a href="{{ route('admin.allProducts')}}">
                                 <i class="fas fa-tags"></i>
                                 Products
@@ -21,6 +22,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <h1 class="m-5">
+                            <router-link>Orders</router-link>
                         <a href="{{ route('admin.allOrders')}}">
                                 <i class="fas fa-file-invoice-dollar"></i>
                                 Orders

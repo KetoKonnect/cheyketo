@@ -42,6 +42,8 @@
                                                 <a href="{{route('admin.viewProduct', $product->id)}}" class="btn btn-outline-secondary">
                                                     view
                                                 </a>
+                                                <button class="btn btn-outline-danger" onclick="delete_product({{$product->id}})">Delete</button>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -55,4 +57,19 @@
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+    function delete_product(id) {
+        Swal.fire({
+            title: 'Please confirm',
+            text: 'Do you really want to delete?',
+            icon: 'warning',
+            confirmButtonText: 'Yes, Delete.'
+        }).then((result) => {
+
+        })
+    }
+    </script>
 @endsection

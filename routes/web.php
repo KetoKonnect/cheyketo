@@ -29,18 +29,26 @@ Route::prefix('/admin')->group(function () {
     Route::post('login', 'AdminController@login');
     Route::get('home', 'AdminController@index')->middleware('auth.admin')->name('admin.home');
     Route::get('products', 'AdminController@allProducts')->middleware('auth.admin')->name('admin.allProducts');
-    Route::get('product/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');
-    Route::post('product/create', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');
-    Route::get('product/{product}', 'AdminController@getProduct')->middleware('auth.admin')->name('admin.viewProduct');
-    Route::get('product/{product}/edit', 'AdminController@editProduct')->middleware('auth.admin')->name('admin.products.edit');
-    Route::post('product/{product}/edit', 'AdminController@updateProduct')->middleware('auth.admin')->name('admin.product.update');
-    Route::get('product/{product}/unavailable', 'AdminController@unavailable')->middleware('auth.admin')->name('admin.products.unavailable');
-    Route::get('product/{product}/available', 'AdminController@available')->middleware('auth.admin')->name('admin.products.available');
+    Route::get('products/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');
+    Route::post('products/create', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');
+    Route::get('products/{product}', 'AdminController@getProduct')->middleware('auth.admin')->name('admin.viewProduct');
+    Route::get('products/{product}/edit', 'AdminController@editProduct')->middleware('auth.admin')->name('admin.products.edit');
+    Route::post('products/{product}/edit', 'AdminController@updateProduct')->middleware('auth.admin')->name('admin.product.update');
+    Route::get('products/{product}/unavailable', 'AdminController@unavailable')->middleware('auth.admin')->name('admin.products.unavailable');
+    Route::get('products/{product}/available', 'AdminController@available')->middleware('auth.admin')->name('admin.products.available');
+    Route::get('products/{product}/delete', 'AdminController@delete')->middleware('auth.admin')->name('admin.product.delete');
 
-
-    Route::get('order/{orderId}', 'AdminController@viewOrder')->middleware('auth.admin')->name('admin.viewOrder');
+    Route::get('orders/{order}', 'AdminController@viewOrder')->middleware('auth.admin')->name('admin.viewOrder');
     Route::get('orders', 'AdminController@allOrders')->middleware('auth.admin')->name('admin.allOrders');
-    Route::get('order/{order}/update_status', 'AdminController@updateOrderStatus')->middleware('auth.admin')->name('admin.updateOrderStatus');
+    Route::get('orders/{order}/update_status', 'AdminController@updateOrderStatus')->middleware('auth.admin')->name('admin.updateOrderStatus');
+
+    Route::get('/api/products', 'ApiController@apiAllProducts')->middleware('auth.admin');
+    Route::get('/api/products/{product}', 'AdminController@apiViewProduct')->middleware('auth.admin');
+    Route::get('/api/orders', 'AdminController@apiAllOrders')->middleware('auth.admin');
+    Route::get('/api/orders/{order}', 'AdminController@apiViewOrder')->middleware(('auth.admin'));
+
+    Route::get('/api/orders/{order}/update_status', 'ApiController@updateOrderStatus')->middleware('auth.admin');
+    Route::get('/api/products/{product}/delete', 'ApiController@deleteProduct')->middleware('auth.admin');
 });
 
 Route::get('/cart', 'CartController@index')->name('cart.view');

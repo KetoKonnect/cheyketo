@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin1')
 
 @section('content')
     <div class="container">
@@ -32,6 +32,11 @@
                     <div class="card-body">
                         <h4>Edit Product Details</h4>
                         {!! Form::model($product, ['route' => ['admin.product.update', $product->id]]) !!}
+                        {{-- <div class="form-group">
+                            {!! Form::label('id', 'Product ID') !!}
+                            {!! Form::text('id', $product->id, ['class' => 'form-control', 'required' => 'true']) !!}
+                        </div> --}}
+
                         <div class="form-group">
                             {!! Form::label('name', 'Product Name') !!}
                             {!! Form::text('name', $product->name, ['class' => 'form-control', 'required' => 'true']) !!}

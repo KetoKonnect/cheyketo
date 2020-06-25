@@ -8,6 +8,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Resources\Products as ProductsResource;
+use App\Http\Resources\Order as OrderResource;
+
 class AdminController extends Controller
 {
     //
@@ -42,10 +45,19 @@ class AdminController extends Controller
         return view('admin.orders.view', compact('order'));
     }
 
+    public function apiViewOrder(Order $order)
+    {
+        return new OrderResource($order);
+    }
     function allOrders()
     {
         $orders = Order::all();
         return view('admin.orders.all', compact('orders'));
+    }
+
+    public function apiAllOrders()
+    {
+        return OrderResource::collection(Order::all());
     }
 
     public function updateOrderStatus(Request $request, Order $order)
@@ -54,15 +66,22 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Order has been updated, and the customer has been notified');
     }
 
-    public function allProducts()
+    public function allProducts(Request $request)
     {
         $products = Product::all();
         return view('admin.products.all', compact('products'));
     }
 
+
+
     public function getProduct(Product $product)
     {
         return view('admin.products.view', compact('product'));
+    }
+
+    public function apiViewProduct(Product $product)
+    {
+        return new ProductsResource($product);
     }
 
     public function editProduct(Product $product)
@@ -73,6 +92,7 @@ class AdminController extends Controller
     public function updateProduct(Request $request, Product $product)
     {
         $product->update($request->validate([
+            'id' => 'required|',
             'name' => 'required|min:5',
             'price' => 'required|numeric',
             'qty' => 'required|numeric',

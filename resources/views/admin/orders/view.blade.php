@@ -65,7 +65,7 @@
                 <ul class="list-group">
                     @foreach ($order->line_items as $item)
                         <li class="list-group-item d-flex w-100 ">
-                        <img class="img-thumbnail mr-2" src="{{ asset(App\Product::find($item->id)->thumbnail) }}" style="max-width: 100px;">
+                        <img class="img-thumbnail mr-2" src="{{ asset(App\Product::withTrashed()->find($item->id)->thumbnail) }}" style="max-width: 100px;">
                             <div>
                                 <h5>{{ $item->name }}</h5>
                                 {{ $item->description }} <br>

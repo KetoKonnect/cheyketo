@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
     //
+    use Searchable;
     use SoftDeletes;
     protected $fillable = ['name', 'description', 'price', 'thumbnail', 'qty', 'quantity_sold', 'status'];
 

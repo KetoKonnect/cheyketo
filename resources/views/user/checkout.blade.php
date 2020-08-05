@@ -21,12 +21,6 @@
                                     Pay with cash at Pickup
                                 </label>
                             </div>
-                            {{-- <div class="form-check">
-                                <input class="form-check-input" type="radio" v-model="selected" value="delivery" name="pay-with-cash" id="delivery-cash">
-                                <label class="form-check-label" for="delivery-cash">
-                                    Pay with cash at Delivery
-                                </label>
-                            </div> --}}
                             @if(auth()->user()->address != null)
                                 <div class="alert alert-info" v-if="selected === 'delivery'">
                                     <h5>Saved Address</h5>

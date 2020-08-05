@@ -11,7 +11,7 @@
 
                 @if($products->count() > 0)
                 @foreach($products as $product)
-                @if($product->status != 'unavailable')
+                @if($product->status == 'unavailable' && $product->qty <= 0)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="{{ $product->thumbnail }}" alt=""></a>

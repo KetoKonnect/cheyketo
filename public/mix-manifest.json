@@ -1,8 +1,14 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/admin.js": "/js/admin.js?id=c8226538b0e1156b46eb",
     "/js/app.js": "/js/app.js?id=d3e35e5080cfb251aecc",
     "/css/app.css": "/css/app.css?id=cfb14768c9f2ec5d233d"
+=======
+    "/js/admin.js": "/js/admin.js",
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
+>>>>>>> parent of 69376ab... What
 =======
     "/js/admin.js": "/js/admin.js",
     "/js/app.js": "/js/app.js",

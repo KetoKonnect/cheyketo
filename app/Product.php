@@ -10,7 +10,6 @@ use Laravel\Scout\Searchable;
 class Product extends Model
 {
     //
-    use Searchable;
     use SoftDeletes;
     protected $fillable = ['name', 'description', 'price', 'thumbnail', 'qty', 'quantity_sold', 'status'];
 

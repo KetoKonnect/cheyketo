@@ -39,7 +39,9 @@ class HomeController extends Controller
     public function landing()
     {
         $products = Product::all();
-        return view('welcome', compact('products'));
+        $unavailableProducts = $products->where('status', 'unavailable');
+        $availableProducts = $products->where('status', 'available');
+        return view('welcome', compact('products', 'unavailableProducts', 'availableProducts'));
     }
 
     function createAddress(Request $request)

@@ -12,7 +12,9 @@ class Product extends Model
     //
     use SoftDeletes;
     protected $fillable = ['name', 'description', 'price', 'thumbnail', 'qty', 'quantity_sold', 'status'];
-
+    protected $dates = [
+        'created_at'
+    ];
     public function setPriceAttribute($value)
     {
         $this->attributes['price'] = ($value * 100);
@@ -21,6 +23,11 @@ class Product extends Model
     public function getPriceAttribute($value)
     {
         return ($value / 100);
+    }
+
+    public function getCreatedAt($value)
+    {
+        return $value->toFormattedDateString();
     }
 
     public function destock($amount)

@@ -24,7 +24,8 @@ Route::get('/myorders', 'HomeController@userOrders')->name('user.orders');
 Route::get('/myorders/{order}', 'HomeController@viewOrder')->name('user.viewOrder');
 
 //admin routes
-Route::prefix('/admin')->group(function () {
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'AdminController@index');
     Route::get('login', 'AdminController@showlogin')->name('admin.login');
     Route::post('login', 'AdminController@login');
     Route::get('home', 'AdminController@index')->middleware('auth.admin')->name('admin.home');

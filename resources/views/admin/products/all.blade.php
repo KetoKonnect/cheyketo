@@ -26,6 +26,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Qty Avail.</th>
+                                        <th scope="col">Price</th>
                                         <th scope="col">Date created</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -33,11 +34,12 @@
                                 <tbody>
                                     @foreach($products as $product)
                                         <tr>
-                                            <td>{{$product->id}}</td>
-                                            <td>{{$product->name}}</td>
-                                            <td>{{$product->description}}</td>
-                                            <td>{{$product->qty}}</td>
-                                            <td>{{$product->created_at->toFormattedDateString()}}</td>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>{{ $product->qty }}</td>
+                                            <td>{{ $product->price }}</td>
+                                            <td>{{ $product->created_at }}</td>
                                             <td>
                                                 <a href="{{route('admin.viewProduct', $product->id)}}" class="btn btn-outline-secondary">
                                                     view

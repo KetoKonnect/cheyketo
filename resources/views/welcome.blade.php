@@ -10,8 +10,7 @@
             <div class="row">
 
                 @if($products->count() > 0)
-                @foreach($products as $product)
-                @if($product->status != 'unavailable' && $product->qty > 0)
+                @foreach($availableProducts as $product)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card h-100">
                         <a href="#"><img class="card-img-top" src="{{ $product->thumbnail }}" alt=""></a>
@@ -36,8 +35,33 @@
                         @endif
                     </div>
                 </div>
-                @endif
+                @endforeach
 
+                @foreach($unavailableProducts as $product)
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <a href="#"><img class="card-img-top" src="{{ $product->thumbnail }}" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a href="#">{{ $product->name }}</a>
+                            </h4>
+                            <h5>${{number_format($product->price, 2, '.',',')}}</h5>
+                            <p class="card-text">{{$product->description }}</p>
+                        </div>
+                        @if($product->status == 'available' && $product->qty > 0)
+                        <div class="card-footer">
+                            <form method="POST" action="{{ route('cart.add', $product->id)}}">
+                                @csrf
+                                <button type="submit" class="btn-primary btn-block">Add to cart</button>
+                            </form>
+                        </div>
+                        @else
+                        <div class="card-footer">
+                            <p>Currently unavailable at this time.</p>
+                        </div>
+                        @endif
+                    </div>
+                </div>
                 @endforeach
                 @else
                 <div class="text-center">

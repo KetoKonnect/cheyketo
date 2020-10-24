@@ -6,6 +6,7 @@ use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -55,6 +56,17 @@ class HomeController extends Controller
         Auth::user()->address()->create($data);
 
         return redirect()->back()->with('success', 'Address Details confirmed');
+    }
+
+    public function updateAddress(Request $request, User $user)
+    {
+        $user->address->update(array_merge($request->validate([
+            'street_address' => 'required|min:5',
+            'city' => 'required|min:2',
+            'island' => 'required'
+        ]), ['country' => 'BS', 'delivery_notes' => $request->delivery_notes]));
+
+        return redirect()->back()->with('success', 'Address Details Updated');
     }
 
     function viewOrder(Order $order)

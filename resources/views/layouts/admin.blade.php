@@ -59,9 +59,9 @@
                 </div>
             </div>
         </nav>
-
-        <admin-root>
-        </admin-root>
+        <main class="py-4">
+            <router-view></router-view>
+        </main>
     </div>
 </body>
 </html>

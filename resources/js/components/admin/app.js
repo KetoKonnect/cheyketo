@@ -25,6 +25,12 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 //     "example-component",
 //     require("./components/ExampleComponent.vue").default
 // );
+import routes from './routes';
+const router = new VueRouter({
+    mode: 'history',
+    base: '/admin/',
+    routes: routes
+})
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,6 +42,7 @@ Vue.use(vueCountryRegionSelect);
 
 const app = new Vue({
     el: "#app",
+    router,
     data() {
         return {
             selected: "",

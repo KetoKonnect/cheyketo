@@ -5,18 +5,10 @@
  */
 
 require("./bootstrap");
-
 window.Vue = require("vue");
 
 import VueRouter from 'vue-router'
-import routes from './components/admin/routes.js'
-
 Vue.use(VueRouter)
-
-const router = new VueRouter({
-    mode: 'history',
-    routes
-})
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,10 +18,13 @@ const router = new VueRouter({
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i)
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component("admin-root", require("./components/admin/root.vue").default);
+// Vue.component(
+//     "example-component",
+//     require("./components/ExampleComponent.vue").default
+// );
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -40,14 +35,14 @@ import vueCountryRegionSelect from "vue-country-region-select";
 Vue.use(vueCountryRegionSelect);
 
 const app = new Vue({
-    el: "#app",
-    router,
+    el: "#customer",
     data() {
         return {
+            toggle_address_modal: false,
             selected: "",
             country: "BS",
             region: "",
-            edit_image: false
+            edit_image: false,
         };
     }
 });

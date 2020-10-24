@@ -13,6 +13,10 @@ use App\Http\Resources\Order as OrderResource;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.admin')->except(['login', 'showlogin']);
+    }
     //
     public function login(Request $request)
     {

@@ -17,7 +17,7 @@
         <div class="card text-center">
           <div class="card-body">
             <h1 class="m-5">
-              <router-link to="/admin/orders">
+              <router-link :to="{name: 'all_orders'}">
                 <i class="fas fa-file-invoice-dollar"></i>
                 Orders
               </router-link>

@@ -61,3 +61,4 @@ Route::post('/cart/removeOne/{index}', 'CartController@removeOne')->name('cart.r
 Route::get('/checkout', 'CartController@showCheckout')->name('checkout');
 Route::post('/checkout', 'CartController@checkout')->name('create_order');
 Route::post('/createAddress', 'HomeController@createAddress')->name('address.create');
+Route::post('/{user}/updateAddress', 'HomeController@updateAddress')->name('address.update');

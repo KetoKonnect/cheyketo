@@ -4,16 +4,19 @@ import all_products from './components/products/all.vue';
 import all_orders from './components/orders/all.vue';
 import view_order from './components/orders/view.vue';
 import view_product from './components/products/view.vue';
-import home from './components/home.vue';
+import dashboard from './components/dashboard.vue';
+import admin from './components/admin';
 
 
-export default [{
-        path: '/admin/home',
-        component: home,
-        name: 'admin_home'
-    },
+export default [
     {
-        path: '/admin/products',
+        path: '/',
+        component: dashboard,
+        name: 'admin_home',
+    },
+
+    {
+        path: '/products',
         component: products,
         children: [{
                 path: '',
@@ -28,12 +31,13 @@ export default [{
             }
         ]
     },
+
     {
-        path: '/admin/orders',
+        path: '/orders',
         component: orders,
         children: [{
                 path: '',
-                name: 'orders_home',
+                name: 'all_orders',
                 component: all_orders
             },
             {

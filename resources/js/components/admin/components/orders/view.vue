@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row mb-2">
       <div class="col">
-        <router-link :to="{ name: 'orders_home' }" class="btn btn-outline-secondary">
+        <router-link :to="{ name: 'all_orders' }" class="btn btn-outline-secondary">
           <i class="fas fa-step-backward"></i>
           All Orders
         </router-link>

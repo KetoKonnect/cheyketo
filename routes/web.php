@@ -25,10 +25,10 @@ Route::get('/myorders/{order}', 'HomeController@viewOrder')->name('user.viewOrde
 
 //admin routes
 Route::prefix('admin')->group(function () {
-    Route::get('/', 'AdminController@index');
+    Route::get('/', 'AdminController@index')->name('admin.home');
     Route::get('login', 'AdminController@showlogin')->name('admin.login');
     Route::post('login', 'AdminController@login');
-    Route::get('home', 'AdminController@index')->middleware('auth.admin')->name('admin.home');
+    Route::get('home', 'AdminController@index')->middleware('auth.admin');
     Route::get('products', 'AdminController@allProducts')->middleware('auth.admin')->name('admin.allProducts');
     Route::get('products/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');
     Route::post('products/create', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');

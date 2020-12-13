@@ -50,14 +50,9 @@
 
 <script>
 export default {
-  mounted() {
-    axios.get("/admin/api/orders").then((response) => {
-      this.orders = response.data.data;
-    });
-  },
   data() {
     return {
-      orders: [],
+      orders: this.$store.getters.allOrders,
     };
   },
   methods: {

@@ -66,14 +66,9 @@
 </template>
 <script>
 export default {
-  mounted() {
-    axios.get("/admin/api/products").then((response) => {
-      this.products = response.data.data;
-    });
-  },
   data() {
     return {
-      products: [],
+      products: this.$store.getters.allProducts,
       disabled: false,
     };
   },

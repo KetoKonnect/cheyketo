@@ -19,7 +19,7 @@ class ApiController extends Controller
         return response()->json($order);
     }
 
-    public function apiAllProducts(Request $request)
+    public function AllProducts(Request $request)
     {
         return ProductsResource::collection(Product::all());
     }

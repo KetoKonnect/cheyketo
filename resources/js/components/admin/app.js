@@ -10,6 +10,11 @@ window.Vue = require("vue");
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+import Store from './store'
+const store = new Vuex.Store(Store)
+console.log(store);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -25,11 +30,13 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 //     "example-component",
 //     require("./components/ExampleComponent.vue").default
 // );
+
 import routes from './routes';
+
 const router = new VueRouter({
     mode: 'history',
     base: '/admin/',
-    routes: routes
+    routes: routes,
 })
 
 /**
@@ -43,6 +50,7 @@ Vue.use(vueCountryRegionSelect);
 const app = new Vue({
     el: "#app",
     router,
+    store,
     data() {
         return {
             selected: "",

@@ -10,6 +10,7 @@
                 Products
               </router-link>
             </h1>
+            <p>Total: {{ total_products }}</p>
           </div>
         </div>
       </div>
@@ -22,7 +23,7 @@
                 Orders
               </router-link>
             </h1>
-            Total: {{ total_orders }} New: {{ new_orders }}
+            <p>Total: {{ total_orders }} New: {{ new_orders }}</p>
           </div>
         </div>
       </div>
@@ -38,26 +39,19 @@ export default {
     };
   },
   beforeMount() {
-    axios
-      .get("/admin/api/orders")
-      .then((response) => {
-        this.orders = response.data.data;
-      })
-      .catch((err) => {});
+    this.$store.dispatch('loadOrders')
+    this.$store.dispatch('loadProducts')
   },
   computed: {
     new_orders() {
-      let count = 0;
-      this.orders.forEach((element) => {
-        if (element.status == "new") {
-          count += 1;
-        }
-      });
-      return count;
+      return this.$store.getters.newOrdersCount
     },
     total_orders() {
-      return this.orders.length;
+      return this.$store.getters.ordersCount;
     },
+    total_products() {
+        return this.$store.getters.productsCount;
+    }
   },
 };
 </script>

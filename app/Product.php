@@ -11,7 +11,16 @@ class Product extends Model
 {
     //
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'price', 'thumbnail', 'qty', 'quantity_sold', 'status'];
+    protected $fillable = [
+        'category',
+        'name', 
+        'description', 
+        'price', 
+        'thumbnail', 
+        'qty', 
+        'quantity_sold', 
+        'status'
+    ];
     protected $dates = [
         'created_at'
     ];
@@ -58,5 +67,14 @@ class Product extends Model
         } else {
             return false;
         }
+    }
+
+    /**
+     * Get the assigned Category
+     */
+    public function category()
+    {
+        # return the category that this product belongs too, if assigned
+        return $this->belongsTo('App\Category');
     }
 }

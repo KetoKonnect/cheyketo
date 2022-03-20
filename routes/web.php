@@ -29,6 +29,16 @@ Route::prefix('admin')->group(function () {
     Route::get('login', 'AdminController@showlogin')->name('admin.login');
     Route::post('login', 'AdminController@login');
     Route::get('home', 'AdminController@index')->middleware('auth.admin');
+    // Category Routes
+    Route::get('categories', 'CategoryController@index')->name('admin.categories.index'); // Show all categories to admin
+    Route::get('category/create', 'CategoryController@create')->name('admin.category.create'); // Show a form to create a category
+    Route::post('category/create', 'CategoryController@store')->name('admin.category.store'); // Save a newly created category
+    Route::get('category/{category}/show', 'CategoryController@show')->name('admin.category.show'); // Show one category and a list of its products
+    Route::get('category/{category}/edit', 'CategoryController@edit')->name('admin.category.edit'); // Edit a single category
+    Route::post('category/{category}/update', 'CategoryController@update')->name('admin.category.update'); // Update a single category
+    Route::post('category/{category}/destroy', 'CategoryController@destroy')->name('admin.category.destroy'); // Destroy a specific category
+
+
     Route::get('products', 'AdminController@allProducts')->middleware('auth.admin')->name('admin.allProducts');
     Route::get('products/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');
     Route::post('products/create', 'ProductController@store')->middleware('auth.admin')->name('admin.product.store');

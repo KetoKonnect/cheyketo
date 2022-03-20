@@ -39,7 +39,8 @@ class AdminController extends Controller
     {
         $ordersCount = Order::all()->count();
         $newOrders = Order::where('status', '=', 'new')->get()->count();
-        return view('admin.home', compact('ordersCount', 'newOrders'));
+        $productCount = Product::all()->count();
+        return view('admin.home', compact('ordersCount', 'newOrders', 'productCount'));
     }
 
     public function viewOrder($order)

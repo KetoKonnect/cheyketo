@@ -58,12 +58,8 @@
                         </div>
                         <img src="{{ asset($product->thumbnail) }}" class="img-thumbnail" width="70">
 
-                        <button class="btn btn-secondary" v-on:click.prevent="edit_image = true" v-if="edit_image == false">Change thumbnail</button>
-                        <div class="form-group" v-if="edit_image">
-                            {!! Form::label('thumbnail', 'Photo') !!}
-                            {!! Form::file('thumbnail', ['class' => 'form-control', 'accept' => 'image/*']) !!}
-                        </div>
-                        <button class="btn btn-secondary" v-if="edit_image" v-on:click.prevent="edit_image = false">Don't change thumbnail</button>
+                        <a class="btn btn-secondary" href="{{ route('admin.product.updateImage', $product->id) }}" rel="noreferrer noopener" target="_blank" >Change thumbnail</a>
+                        
                         {!! Form::submit('Update', ['class' => 'btn btn-primary btn-block'])!!}
                         {!! Form::close() !!}
                     </div>

@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
     Route::get('products/{product}/unavailable', 'AdminController@unavailable')->middleware('auth.admin')->name('admin.products.unavailable');
     Route::get('products/{product}/available', 'AdminController@available')->middleware('auth.admin')->name('admin.products.available');
     Route::get('products/{product}/delete', 'AdminController@delete')->middleware('auth.admin')->name('admin.product.delete');
+    Route::get('products/{product}/update_thumbnail', 'AdminController@updateProductThumbnail')->middleware('auth.admin')->name('admin.product.updateImage');
+    Route::post('products/{product}/save_thumbnail', 'AdminController@storeThumbnail')->middleware('auth.admin')->name('admin.product.storeThumbnail');
 
     Route::get('orders/{order}', 'AdminController@viewOrder')->middleware('auth.admin')->name('admin.viewOrder');
     Route::get('orders', 'AdminController@allOrders')->middleware('auth.admin')->name('admin.allOrders');

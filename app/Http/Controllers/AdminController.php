@@ -107,6 +107,20 @@ class AdminController extends Controller
         return redirect(route('admin.viewProduct', $product->id))->with('success', 'Product Updated');
     }
 
+    public function updateProductThumbnail(Product $product) {
+        return view('admin.products.updateThumbnail', compact('product'));
+    }
+
+    public function storeThumbnail(Request $request, Product $product)
+    {
+        /** Validate a thumbnail is an image and then store it to file system and then save path of it to the database. */
+        $request->validate(['thumbnail' => 'image']);
+
+        $product->update(['thumbnail' => $request->file('thumbnail')->store('thumbnails')]);
+
+        return redirect(route('admin.viewProduct', $product->id))->with('success', 'Thumbnail Updated');
+    }
+
     public function unavailable(Product $product)
     {
         $product->update(['status' => 'unavailable']);

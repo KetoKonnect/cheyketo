@@ -45,7 +45,6 @@
                                 Categories
                             </a>
                         </h1>
-                        <p>Total: {{$ordersCount}} New: {{$newOrders}}</p>
                     </div>
 
                 </div>     

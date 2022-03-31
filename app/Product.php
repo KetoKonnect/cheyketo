@@ -77,4 +77,10 @@ class Product extends Model
         # return the category that this product belongs too, if assigned
         return $this->belongsTo('App\Category');
     }
+
+
+    public function scopeUnclassified($query)
+    {
+        return $query->where('category_id', null);
+    }
 }

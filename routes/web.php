@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', 'HomeController@landing')->name('storefront');
+Route::get('/products/{category}', 'HomeController@ShopByCategory')->name('storeCategoryPage');
 
 Auth::routes();
 
@@ -37,7 +38,8 @@ Route::prefix('admin')->group(function () {
     Route::get('category/{category}/edit', 'CategoryController@edit')->name('admin.category.edit'); // Edit a single category
     Route::post('category/{category}/update', 'CategoryController@update')->name('admin.category.update'); // Update a single category
     Route::post('category/{category}/destroy', 'CategoryController@destroy')->name('admin.category.destroy'); // Destroy a specific category
-
+    Route::patch('category/add_product/{category}/{product}', 'CategoryController@addProduct')->name('admin.category.addProduct'); // Add a product to a specified category using PATCH method
+    Route::patch('category/remove_product/{category}/{product}', 'CategoryController@removeProduct')->name('admin.category.removeProduct'); // Remove a product from a specified category using a PATCH method
 
     Route::get('products', 'AdminController@allProducts')->middleware('auth.admin')->name('admin.allProducts');
     Route::get('products/create', 'ProductController@create')->middleware('auth.admin')->name('admin.product.create');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('landing');
+        $this->middleware('auth')->except(['landing', 'ShopByCategory']);
     }
 
     /**
@@ -42,7 +43,8 @@ class HomeController extends Controller
         $products = Product::all();
         $unavailableProducts = $products->where('status', 'unavailable');
         $availableProducts = $products->where('status', 'available');
-        return view('welcome', compact('products', 'unavailableProducts', 'availableProducts'));
+        $categories = Category::all();
+        return view('welcome', compact('products', 'unavailableProducts', 'availableProducts', 'categories'));
     }
 
     function createAddress(Request $request)
@@ -72,5 +74,14 @@ class HomeController extends Controller
     function viewOrder(Order $order)
     {
         return view('user.order', compact('order'));
+    }
+
+    public function ShopByCategory(Category $category)
+    {
+        $products = $category->products;
+        $unavailableProducts = $products->where('status', 'unavailable');
+        $availableProducts = $products->where('status', 'available');
+        $categories = Category::all();
+        return view('welcome', compact('products', 'unavailableProducts', 'availableProducts', 'categories'));
     }
 }

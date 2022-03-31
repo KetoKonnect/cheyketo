@@ -6,7 +6,7 @@
         <div class="col">
             <h1>Categories Manager</h1>
             <hr>
-            <a href="#" class="btn btn-primary">Create a Category</a>
+            <a href="{!! route('admin.category.create') !!}" class="btn btn-primary">Create a Category</a>
 
             @if (count($categories) > 0)
             <table class="table m-4">
@@ -24,7 +24,7 @@
                         <td>{{ $category->name }}</td>
                         <td>{{ $category->description }}</td>
                         <td>
-                            <a href="{!! route('admin.category.show') !!}">View</a> | <a href="{!! route('admin.category.edit') !!}">Edit</a>
+                            <a href="{!! route('admin.category.show', $category->id) !!}">View</a> | <a href="{!! route('admin.category.edit', $category->id) !!}">Edit</a>
                         </td>
                     </tr>
                     @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Order;
 use App\Product;
 use App\Providers\RouteServiceProvider;
